@@ -5,13 +5,13 @@ def fetch_pending():
     # Connect to the database
     connection = mysql.connector.connect(
         host="localhost",
-        user="your_username",
-        password="your_password",
-        database="your_database"
+        user="dbuser",
+        password="123",
+        database="net-hw2"
     )
 
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM notifications WHERE status = 'pending'")
+    cursor.execute("SELECT vk_id, date, msg FROM notifications WHERE status = 'pending'")
     rows = cursor.fetchall()
 
     # Format the data as a list of dictionaries

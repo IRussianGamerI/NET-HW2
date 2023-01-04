@@ -1,5 +1,7 @@
 import json
 import logging
+from abc import ABC
+
 import tornado.ioloop
 import tornado.web
 
@@ -18,7 +20,7 @@ producer = KafkaProducer(bootstrap_servers=[config.SERVER],
                          value_serializer=lambda m: json.dumps(m).encode())
 
 
-class ProduceHandler(tornado.web.RequestHandler):
+class ProduceHandler(tornado.web.RequestHandler, ABC):
     def post(self):
         data = json.loads(self.request.body)
         producer.send(config.TOPIC, value=data)
@@ -33,5 +35,5 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8080)
+    app.listen(8000)
     tornado.ioloop.IOLoop.current().start()

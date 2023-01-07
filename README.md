@@ -22,25 +22,29 @@
 
 ## Реализация и запуск
 
-1. Установить Apache Kafka на Ubuntu по инструкции:
+1. Установить необходимые зависимости: 
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Установить Apache Kafka на Ubuntu по инструкции:
    https://ruvds.com/ru/helpcenter/kak-ustanovit-apache-kafka-na-ubuntu-20-04/
-2. Прописать в конфиге свой токен для доступа к API VK
-3. Запустить службу Kafka:
+3. Прописать в `config.py` свой токен для доступа к API VK
+4. Запустить службу Kafka:
 
-```
-sudo bash script.sh
-```
+   ```bash
+   sudo bash script.sh
+   ```
 
-4. Запустить producer:
+5. Запустить producer:
 
-```
-python3 producer.py
-```
+   ```bash
+   python3 producer.py
+   ```
 
-5. Запустить consumer:
+6. Запустить consumer:
 
-```
-python3 consumer.py
-```
+   ```bash
+   python3 consumer.py
+   ```
 
-6. Запустить Госуслуги в ветке `gosuslugi`
+7. Запустить Госуслуги в ветке `gosuslugi`

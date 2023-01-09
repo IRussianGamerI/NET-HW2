@@ -24,6 +24,7 @@ class ProduceHandler(tornado.web.RequestHandler, ABC):
     def post(self):
         data = json.loads(self.request.body)
         producer.send(config.TOPIC, value=data)
+        producer.flush()
         logger.info(f"{data} sent to consumer")
 
 
@@ -34,6 +35,10 @@ def make_app():
 
 
 if __name__ == "__main__":
-    app = make_app()
-    app.listen(8000)
-    tornado.ioloop.IOLoop.current().start()
+    try:
+        app = make_app()
+        app.listen(8000)
+        tornado.ioloop.IOLoop.current().start()
+    except KeyboardInterrupt:
+        producer.close()
+        logger.info("Producer is shutting down...")

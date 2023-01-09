@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
     consumer = KafkaConsumer(config.TOPIC,
                              bootstrap_servers=[config.SERVER],
+                             group_id=None,
                              auto_offset_reset='earliest',
                              enable_auto_commit=True,
                              value_deserializer=lambda x: json.loads(x.decode('utf-8')))
@@ -56,6 +57,7 @@ if __name__ == '__main__':
                     "notification_id": notification_id,
                     "new_status": "failed"
                 })
+                logger.info("Госуслуги уведомлены об ошибке")
 
     except KeyboardInterrupt:
         logger.info("Consumer is shutting down...")

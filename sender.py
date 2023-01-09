@@ -54,6 +54,7 @@ def send_to_producer():
         })
         requests.post("http://localhost:8000/produce", json=d)
         logger.info(f"{d} sent to producer")
+        time.sleep(1)
 
 
 if __name__ == "__main__":

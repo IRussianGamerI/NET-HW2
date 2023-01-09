@@ -21,6 +21,7 @@ class UpdateStatusHandler(tornado.web.RequestHandler, ABC):
         data = json.loads(self.request.body)
         notification_id = data["notification_id"]
         new_status = data["new_status"]
+        print(f"Updating notification #{notification_id} status to {new_status}")
 
         # Update the notification status in the database
         cursor.execute("UPDATE notifications SET status = %s WHERE id = %s", (new_status, notification_id))
@@ -38,6 +39,10 @@ def make_app():
 
 
 if __name__ == "__main__":
-    app = make_app()
-    app.listen(7999)
-    tornado.ioloop.IOLoop.current().start()
+    try:
+        app = make_app()
+        print("Listening on port 7999...")
+        app.listen(7999)
+        tornado.ioloop.IOLoop.current().start()
+    except KeyboardInterrupt:
+        print("Database updater is shutting down...")
